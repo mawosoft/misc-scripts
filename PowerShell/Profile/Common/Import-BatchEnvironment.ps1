@@ -2,26 +2,6 @@
 
 <#
 .SYNOPSIS
-    Lists all Powershell profiles and tests if they exist.
-.OUTPUTS
-    [PSObject[]] with profile infos
-#>
-function global:Get-Profile {
-    [CmdletBinding()]
-    [OutputType([psobject[]])]
-    param()
-
-    foreach ($scope in ('AllUsersAllHosts', 'AllUsersCurrentHost', 'CurrentUserAllHosts', 'CurrentUserCurrentHost')) {
-        [pscustomobject]@{
-            Scope  = $scope
-            Path   = $PROFILE.$($scope)
-            Exists = Test-Path -Path $PROFILE.$($scope) -PathType Leaf
-        }
-    }
-}
-
-<#
-.SYNOPSIS
     # Invokes a batch file (.bat, .cmd) and imports the environment variables it has set.
 .NOTES
     TODO
@@ -29,7 +9,8 @@ function global:Get-Profile {
     - preserve working dir, psmodulepath
     - Batch parameters and other goodies
 #>
-function global:Import-BatchEnvironment {
+function Import-BatchEnvironment {
+    [CmdletBinding()]
     param (
         # The batch file to run
         [Parameter(Mandatory)]

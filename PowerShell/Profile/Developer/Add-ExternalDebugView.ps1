@@ -45,8 +45,8 @@ function Add-ExternalDebugView {
 
             public void View(object @object)
             {
-                Object = @object;
                 if (Disabled || DisabledGlobally) return;
+                Object = @object;
                 if (Debugger.IsAttached)
                 {
                     Debugger.Break();

@@ -29,7 +29,18 @@ param(
     [switch]$Force
 )
 
+try {
+    $null = Get-Variable 'foobar' -Scope 1 -ErrorAction Stop
+}
+catch [System.ArgumentOutOfRangeException] {
+    throw 'Dot-sourcing this script is not allowed.'
+}
+catch {}
+
 Set-StrictMode -Version 3.0
+if (-not $PSBoundParameters.ContainsKey('ErrorAction')) {
+    $ErrorActionPreference = 'Stop'
+}
 
 # Get content from source files
 function Get-SourceContent {
@@ -59,16 +70,18 @@ function Get-SourceContent {
         [Alias('gprh')]
         [OutputType([psobject])]
         param()
-        $Aliases = @('%ALIASES%')
-        $Functions = @('%FUNCTIONS%')
-        $Aliases | Get-Command -ListImported | Select-Object @{n = 'Command'; e = 'DisplayName' }, @{n = 'Parameters'; e = '''''' }
-        $Functions | Get-Command -ListImported | Select-Object @{n = 'Command'; e = 'Name' }, @{n = 'Parameters'; e = { $_.ParameterSets -join [System.Environment]::NewLine } }
+        @('%ALIASES%') |
+            Get-Command -ListImported |
+            Select-Object @{n = 'Command'; e = 'DisplayName' }, @{n = 'Parameters'; e = '''''' }
+        @('%FUNCTIONS%') |
+            Get-Command -ListImported |
+            Select-Object @{n = 'Command'; e = 'Name' }, @{n = 'Parameters'; e = { $_.ParameterSets -join [System.Environment]::NewLine } }
     }
 }.ToString()
 
 [object[]]$contentAllHosts = Get-SourceContent -Path "$PSScriptRoot/Common"
 
-if (Test-Path 'env:VBOX_MSI_INSTALL_PATH' -PathType Container) {
+if (Test-Path 'env:VBOX_MSI_INSTALL_PATH') {
     $contentAllHosts += Get-SourceContent -Path "$PSScriptRoot/VirtualBoxHost"
 }
 

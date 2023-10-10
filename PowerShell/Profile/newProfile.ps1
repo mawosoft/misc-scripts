@@ -51,8 +51,19 @@ function Get-SourceContent {
         [ValidateNotNullOrEmpty()]
         [string]$Path
     )
-    # TODO Support a config file (e.g. '.filelist') to determine order and inclusions/exclusions.
-    [FileInfo[]]$files = Get-ChildItem $Path -Filter '*.ps1'
+    # '.files just lists all file names to include in the desired order.
+    [string]$filelist = Join-Path $Path '.files'
+    [FileInfo[]]$files = $null
+    if (Test-Path $filelist -PathType Leaf) {
+        $files = Get-Content $filelist |
+            ForEach-Object { $_.Trim() } |
+            Where-Object { -not [string]::IsNullOrEmpty($_) -and -not $_.StartsWith([char]'#') } |
+            ForEach-Object { Join-Path -Path $Path $_ } |
+            Get-Item
+    }
+    else {
+        $files = Get-ChildItem $Path -Filter '*.ps1'
+    }
     Write-Verbose 'Source Files:'
     $files | Out-String | Write-Verbose
     $files | Get-Content -Raw

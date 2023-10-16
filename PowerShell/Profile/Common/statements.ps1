@@ -16,8 +16,6 @@ Set-PSReadLineKeyHandler -Chord Ctrl+F1 -BriefDescription 'Online Help' -Descrip
     [int]$cursor = 0
     [string]$commandName = ''
     [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$null, [ref]$tokens, [ref]$null, [ref]$cursor)
-    $null = $null
-    #Write-Warning 'debug' -WarningAction Break
     foreach ($token in $tokens) {
         if ($token.Extent.StartOffset -gt $cursor) { break }
         if ($token.TokenFlags -band [System.Management.Automation.Language.TokenFlags]::CommandName) {

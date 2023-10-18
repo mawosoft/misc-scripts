@@ -77,14 +77,14 @@ if ($logFiles.Count -lt 2) {
 # Log entries from all files
 [List[psobject]]$logEntries = @()
 
-foreach ($logfile in $logFiles) {
-    [string]$content = Get-Content $logFile.Path -Raw
+for ([int]$i = 0; $i -lt $logFiles.Count; $i++) {
+    [string]$content = Get-Content $logFiles[$i].Path -Raw
     if (-not $content) { continue } # Can be empty
-    [string]$name = $logFile.Name
+    [string]$name = $logFiles[$i].Name
 
     [Match]$m = [regex]::Match($content, '^(?<stamp>\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d\.\d\d\d) \[[A-Za-z]+\]')
     if (-not $m.Success) {
-        Write-Warning "Skipping log with non-standard format $($logFile.Path)"
+        Write-Warning "Skipping log with non-standard format $($logFiles[$i].Path)"
         continue
     }
 

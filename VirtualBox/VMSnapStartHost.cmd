@@ -7,20 +7,12 @@ rem - Unplugs the network cable on adapter 1 for security.
 rem - Starts the VM.
 rem - Sets the transient guest property SnapStart=1.
 
-rem VirtualBox v6.1.16
 rem An autostart guest script (see VMSnapStartGuest) can query the property
 rem via VBoxControl and alert the user if it's missing.
 rem *BUG* Transient properties should be automatically deleted when the VM
 rem shuts down, but somehow that doesn't happen. Therefore the guest script
 rem should explicitly unset it (Only VBoxControl...unset seems to work, even
 rem VBoxControl...delete has the variable somehow comming back).
-
-rem VirtualBox v6.1.18
-rem It seems, the property now survives a restart of the guest OS.
-rem The property is removed on VM shutdown. Still using "unset". Not yet tested
-rem if "delete" would work now.
-rem Seems to have been a glitch, gone again after restart.
-
 
 rem Unlike other path vars, this one already has trailing backslash.
 set vbm="%VBOX_MSI_INSTALL_PATH%vboxmanage.exe" --nologo

@@ -2,6 +2,9 @@
 
 Miscellaneous scripts.
 
+- **CI**\
+  CI scripts.
+
 - **PowerShell**
 
   - **Profile**\

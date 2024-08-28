@@ -1,0 +1,41 @@
+query(
+  $owner: String!
+  $repo: String!
+  $author: String
+  $first: Int = 100 # GitHub limit
+  $after: String = null
+) {
+  repository(owner: $owner, name: $repo) {
+    issues(
+      states: CLOSED
+      orderBy: {field: CREATED_AT, direction: ASC}
+      filterBy: {createdBy: $author}
+      first: $first
+      after: $after
+    ) {
+      totalCount
+      pageInfo { hasNextPage, endCursor }
+      edges {
+        node {
+          id
+          number
+          title
+          state
+          stateReason
+          author { login, __typename }
+          timelineItems(first: 20) {
+            totalCount
+            edges {
+              node {
+                __typename
+                ... on ClosedEvent {
+                  closer { __typename }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

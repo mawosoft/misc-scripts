@@ -16,5 +16,10 @@ Miscellaneous scripts.
 - **VirtualBox**\
   Batch scripts to automatically take a snapshot before starting a VM and verify snapshot creation inside the VM.
 
-- **VSCode**\
-  Merge selected VSCode logs and sort by log entry timestamps.
+- **VSCode**
+
+  - **mergeVscodeLogs.ps1**\
+    Merge selected VSCode logs and sort by log entry timestamps.
+
+  - **repairVscodePowerShell.ps1**\
+    Repair broken *vscode-powershell* shell integration.

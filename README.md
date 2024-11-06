@@ -22,4 +22,5 @@ Miscellaneous scripts.
     Merge selected VSCode logs and sort by log entry timestamps.
 
   - **repairVscodePowerShell.ps1**\
-    Repair broken *vscode-powershell* shell integration.
+    Repair broken *vscode-powershell* shell integration.\
+    Obsolete: Fixed in vscode-powershell v2024.4.0

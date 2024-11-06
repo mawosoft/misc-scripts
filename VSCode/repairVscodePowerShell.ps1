@@ -10,7 +10,7 @@
 .NOTES
     VSCode 1.94++ moved the shell integration scripts to a different folder.
     As a result, the PowerShell Extension doesn't initialize correctly.
-    This seems to be fixed in v2024.5.0-preview.
+    Obsolete: Fixed in vscode-powershell v2024.4.0
 #>
 
 #Requires -Version 5.1

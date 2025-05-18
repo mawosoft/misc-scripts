@@ -54,3 +54,8 @@ Set-PSReadLineKeyHandler -Chord Ctrl+F1 -BriefDescription 'Online Help' -Descrip
         try { $null = Get-Help $commandName -Online } catch {}
     }
 }
+
+# Additional PowerShell aliases
+New-Alias -Name 'cfj' -Value 'ConvertFrom-Json'
+New-Alias -Name 'ctj' -Value 'ConvertTo-Json'
+New-Alias -Name 'os' -Value 'Out-String'

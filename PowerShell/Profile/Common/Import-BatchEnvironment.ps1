@@ -11,6 +11,7 @@
 #>
 function Import-BatchEnvironment {
     [CmdletBinding()]
+    [Alias('ipbe')]
     param (
         # The batch file to run
         [Parameter(Mandatory)]

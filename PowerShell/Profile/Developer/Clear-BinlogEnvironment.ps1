@@ -5,6 +5,7 @@
     Clears the MSBuild environment variables for binlog auto-generation
 #>
 function Clear-BinlogEnvironment {
+    [Alias('clbl')]
     param()
 
     $env:MSBuildDebugEngine = $null

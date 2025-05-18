@@ -5,6 +5,7 @@
     Sets MSBuild environment variables to auto-generate binlogs
 #>
 function Set-BinlogEnvironment {
+    [Alias('sbl')]
     param(
         # Binlog will include all environment variables, not just used ones.
         [switch]$LogAllEnvVars,

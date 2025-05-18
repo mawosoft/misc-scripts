@@ -16,6 +16,7 @@
 #>
 function Expand-Object {
     [CmdletBinding(PositionalBinding = $false)]
+    [Alias('exo')]
     [OutputType([psobject])]
     param(
         # The objects to process. It is recommended to use the pipeline for passing objects.

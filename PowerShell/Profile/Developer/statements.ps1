@@ -1,4 +1,4 @@
-# Copyright (c) 2023-2024 Matthias Wolf, Mawosoft.
+# Copyright (c) Matthias Wolf, Mawosoft.
 
 # dotnet Tab completion
 # See https://learn.microsoft.com/en-us/dotnet/core/tools/enable-tab-autocomplete

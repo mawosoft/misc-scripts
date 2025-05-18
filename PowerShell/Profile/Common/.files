@@ -1,5 +1,6 @@
 statements.ps1
 Expand-Object.ps1
+Get-DynamicType.ps1
 Get-Profile.ps1
 Get-StrictMode.ps1
 Import-BatchEnvironment.ps1

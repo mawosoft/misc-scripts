@@ -2,7 +2,7 @@
 
 <#
 .SYNOPSIS
-    Gets the exported types from dynamic assemblies.
+    Gets the types defined in dynamic assemblies.
 .OUTPUTS
     - String - The AssemblyQualifiedName of each type.
     - Type - The types itself if -PassThru is specified
@@ -17,5 +17,5 @@ function Get-DynamicType {
 
     [System.AppDomain]::CurrentDomain.GetAssemblies().
     Where({ $_.IsDynamic -or $_.GetName().Version -eq '0.0.0.0' }).
-    ForEach({ $_.ExportedTypes.ForEach({ $PassThru ? $_ : $_.AssemblyQualifiedName }) })
+    ForEach({ $_.DefinedTypes.ForEach({ if ($PassThru) { $_ } else { $_.AssemblyQualifiedName } }) })
 }

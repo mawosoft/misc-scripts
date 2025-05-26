@@ -5,6 +5,9 @@ Miscellaneous scripts.
 - **CI**\
   CI scripts.
 
+- **Javascript**\
+  Javascript/Typescript helpers.
+
 - **PowerShell**
 
   - **Profile**\

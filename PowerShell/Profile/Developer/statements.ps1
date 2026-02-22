@@ -10,5 +10,5 @@ Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
 }
 
 # Visual Studio aliases
-New-Alias -Name 'vstudio' -Value (Join-Path $env:ProgramFiles 'Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.exe')
-New-Alias -Name 'vsdevcmd' -Value (Join-Path $env:ProgramFiles 'Microsoft Visual Studio\2022\Community\Common7\Tools\VsDevCmd.bat')
+New-Alias -Name 'vstudio' -Value (Join-Path $env:ProgramFiles 'Microsoft Visual Studio\18\Community\Common7\IDE\devenv.exe')
+New-Alias -Name 'vsdevcmd' -Value (Join-Path $env:ProgramFiles 'Microsoft Visual Studio\18\Community\Common7\Tools\VsDevCmd.bat')

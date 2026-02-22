@@ -98,7 +98,7 @@ if (Test-Path 'env:VBOX_MSI_INSTALL_PATH') {
 
 [string]$vstudioPath = Join-Path $env:ProgramFiles 'Microsoft Visual Studio'
 if (Test-Path $vstudioPath -PathType Container) {
-    [string]$vstudioPath2 = Join-Path $vstudioPath '2022\Community\Common7'
+    [string]$vstudioPath2 = Join-Path $vstudioPath '18\Community\Common7'
     if (-not (Test-Path -Path (Join-Path $vstudioPath2 'IDE\devenv.exe') -PathType Leaf) -or
         -not (Test-Path -Path (Join-Path $vstudioPath2 'Tools\VsDevCmd.bat') -PathType Leaf)) {
         throw "The path '$vstudioPath' exists, but required files below are missing.`n" +

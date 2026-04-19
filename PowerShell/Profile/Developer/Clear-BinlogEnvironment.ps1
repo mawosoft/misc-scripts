@@ -9,9 +9,12 @@ function Clear-BinlogEnvironment {
     param()
 
     $env:MSBuildDebugEngine = $null
+    $env:MSBUILDDEBUGPATH = $null
+    $env:MsBuildLogPropertyTracking = $null
+    $env:MSBUILDLOGALLENVIRONMENTVARIABLES = $null
+
     $env:MSBUILDLOGTASKINPUTS = $null
     $env:MSBUILDTARGETOUTPUTLOGGING = $null
     $env:MSBUILDLOGIMPORTS = $null
-    $env:MSBUILDLOGALLENVIRONMENTVARIABLES = $null
-    $env:MSBUILDDEBUGPATH = $null
+    $env:MSBUILDLOGPROPERTIESANDITEMSAFTEREVALUATION = $null
 }

@@ -16,8 +16,8 @@ EventPipe listener.
   ```
 - Manually start/stop the trace (no admin required):
   ```
-  logman start msbuild.trace
-  logman stop msbuild.trace
+  logman start msbuild-trace
+  logman stop msbuild-trace
   ```
 - Use [PerfView](https://github.com/microsoft/perfview) to view the trace. The Windows Event Viewer or Visual Studio won't display the payloads correctly.
   ```

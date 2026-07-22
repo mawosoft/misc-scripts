@@ -12,16 +12,34 @@ function Get-StrictMode {
     [CmdletBinding()]
     [OutputType([version])]
     param ()
-    $bflags = [System.Reflection.BindingFlags]'Instance, NonPublic'
-    # $PSCmdlet.SessionState actually contains the session state of the caller, not the one
-    # currently applying here.
-    $state = [System.Management.Automation.SessionState].GetProperty('Internal', $bflags).GetValue($PSCmdlet.SessionState)
-    [type]$stateType = $state.GetType()
-    $scope = $stateType.GetProperty('CurrentScope', $bflags).GetValue($state)
-    $moduleScope = $stateType.GetProperty('ModuleScope', $bflags).GetValue($state)
-    [type]$scopeType = $scope.GetType()
-    [System.Reflection.PropertyInfo]$piParent = $scopeType.GetProperty('Parent', $bflags)
-    [System.Reflection.PropertyInfo]$piMode = $scopeType.GetProperty('StrictModeVersion', $bflags)
+    $callerFrame = $null
+    $e = ([System.Collections.IEnumerable][runspace]::DefaultRunspace.Debugger.GetCallStack()).GetEnumerator()
+    if ($e.MoveNext() -and $e.MoveNext()) {
+        $callerFrame = $e.Current
+    }
+    $edisp = $e -as [System.IDisposable]
+    if ($null -ne $edisp) { $edisp.Dispose() }
+    if ($null -eq $callerFrame) {
+        return # Should not happen
+    }
+    $bfi = [System.Reflection.BindingFlags]'Instance, NonPublic'
+    $piInternal = [System.Management.Automation.SessionState].GetProperty('Internal', $bfi)
+    $thisState = $piInternal.GetValue($ExecutionContext.SessionState)
+    $callerFunctionContext = [System.Management.Automation.CallStackFrame].GetProperty(
+        'FunctionContext', $bfi).GetValue($callerFrame)
+    # The real SessionState of the caller is only available via
+    #   CallStackFrame.FunctionContext._scriptBlock.SessionState
+    $callerState = $piInternal.GetValue([scriptblock].GetProperty('SessionState', $bfi).GetValue(
+            $callerFunctionContext.GetType().GetField('_scriptBlock', $bfi).GetValue($callerFunctionContext)))
+    $scope = $piInternal.PropertyType.GetProperty('CurrentScope', $bfi).GetValue($callerState)
+    $moduleScope = $piInternal.PropertyType.GetProperty('ModuleScope', $bfi).GetValue($callerState)
+    $tiScope = $scope.GetType()
+    $piParent = $tiScope.GetProperty('Parent', $bfi)
+    $piMode = $tiScope.GetProperty('StrictModeVersion', $bfi)
+    if ($callerState -eq $thisState) {
+        # Adjust scope if we share SessionState with caller
+        $scope = $piParent.GetValue($scope)
+    }
     while ($null -ne $scope) {
         [version]$mode = $piMode.GetValue($scope)
         if ($null -ne $mode) {

@@ -1,0 +1,219 @@
+Results are the same for PowerShell 5.1 and 7.6.5
+
+PS C:\Users\mw\Projects\Learning\pses-lab> . tests\SessionStateTest\run.ps1
+
+CalleeInfo                   : CalleeInScript
+CallerInfo                   : Peer of CalleeInScript
+CalleeSessionState           : <module-null>
+CalleeSessionStateInternal   : <module-null>
+PSCmdletSessionState         : <module-null>
+PSCmdletSessionStateInternal : <module-null>
+FrameSessionStateInternal1   : <module-null>
+FrameSessionState            : <module-null>
+FrameSessionStateInternal2   : <module-null>
+Groups                       : {[<module-null>, CalleeSessionState, FrameSessionState], [<module-null>, CalleeSessionStateInternal, PSCmdletSessionStateInternal, FrameSessionStateInternal1, 
+                               FrameSessionStateInternal2], [<module-null>, PSCmdletSessionState]}
+
+CalleeInfo                   : CalleeInScript
+CallerInfo                   : Toplevel of CalleeInScript
+CalleeSessionState           : <module-null>
+CalleeSessionStateInternal   : <module-null>
+PSCmdletSessionState         : <module-null>
+PSCmdletSessionStateInternal : <module-null>
+FrameSessionStateInternal1   : <null>
+FrameSessionState            : <module-null>
+FrameSessionStateInternal2   : <module-null>
+Groups                       : {[<module-null>, CalleeSessionState, FrameSessionState], [<module-null>, CalleeSessionStateInternal, PSCmdletSessionStateInternal, FrameSessionStateInternal2], [<module-null>, 
+                               PSCmdletSessionState], [<null>, FrameSessionStateInternal1]}
+
+CalleeInfo                   : CalleeInModule
+CallerInfo                   : Peer of CalleeInModule
+CalleeSessionState           : module: CalleeModule
+CalleeSessionStateInternal   : module: CalleeModule
+PSCmdletSessionState         : module: CalleeModule
+PSCmdletSessionStateInternal : module: CalleeModule
+FrameSessionStateInternal1   : module: CalleeModule
+FrameSessionState            : module: CalleeModule
+FrameSessionStateInternal2   : module: CalleeModule
+Groups                       : {[module: CalleeModule, CalleeSessionState, FrameSessionState], [module: CalleeModule, CalleeSessionStateInternal, PSCmdletSessionStateInternal, FrameSessionStateInternal1, 
+                               FrameSessionStateInternal2], [module: CalleeModule, PSCmdletSessionState]}
+
+CalleeInfo                   : CalleeInModule
+CallerInfo                   : Toplevel of CalleeInModule
+CalleeSessionState           : module: CalleeModule
+CalleeSessionStateInternal   : module: CalleeModule
+PSCmdletSessionState         : module: CalleeModule
+PSCmdletSessionStateInternal : module: CalleeModule
+FrameSessionStateInternal1   : module: CalleeModule
+FrameSessionState            : module: CalleeModule
+FrameSessionStateInternal2   : module: CalleeModule
+Groups                       : {[module: CalleeModule, CalleeSessionState, FrameSessionState], [module: CalleeModule, CalleeSessionStateInternal, PSCmdletSessionStateInternal, FrameSessionStateInternal1, 
+                               FrameSessionStateInternal2], [module: CalleeModule, PSCmdletSessionState]}
+
+CalleeInfo                   : CalleeInScript
+CallerInfo                   : CallingScript SimpleFunc
+CalleeSessionState           : <module-null>
+CalleeSessionStateInternal   : <module-null>
+PSCmdletSessionState         : <module-null>
+PSCmdletSessionStateInternal : <module-null>
+FrameSessionStateInternal1   : <module-null>
+FrameSessionState            : <module-null>
+FrameSessionStateInternal2   : <module-null>
+Groups                       : {[<module-null>, CalleeSessionState, FrameSessionState], [<module-null>, CalleeSessionStateInternal, PSCmdletSessionStateInternal, FrameSessionStateInternal1, 
+                               FrameSessionStateInternal2], [<module-null>, PSCmdletSessionState]}
+
+CalleeInfo                   : CalleeInModule
+CallerInfo                   : CallingScript SimpleFunc
+CalleeSessionState           : module: CalleeModule
+CalleeSessionStateInternal   : module: CalleeModule
+PSCmdletSessionState         : <module-null>
+PSCmdletSessionStateInternal : <module-null>
+FrameSessionStateInternal1   : <module-null>
+FrameSessionState            : <module-null>
+FrameSessionStateInternal2   : <module-null>
+Groups                       : {[module: CalleeModule, CalleeSessionState], [module: CalleeModule, CalleeSessionStateInternal], [<module-null>, PSCmdletSessionState], [<module-null>, PSCmdletSessionStateInternal, 
+                               FrameSessionStateInternal1, FrameSessionStateInternal2], [<module-null>, FrameSessionState]}
+
+CalleeInfo                   : CalleeInScript
+CallerInfo                   : CallingScript CmdletFunc
+CalleeSessionState           : <module-null>
+CalleeSessionStateInternal   : <module-null>
+PSCmdletSessionState         : <module-null>
+PSCmdletSessionStateInternal : <module-null>
+FrameSessionStateInternal1   : <module-null>
+FrameSessionState            : <module-null>
+FrameSessionStateInternal2   : <module-null>
+Groups                       : {[<module-null>, CalleeSessionState, FrameSessionState], [<module-null>, CalleeSessionStateInternal, PSCmdletSessionStateInternal, FrameSessionStateInternal1, 
+                               FrameSessionStateInternal2], [<module-null>, PSCmdletSessionState]}
+
+CalleeInfo                   : CalleeInModule
+CallerInfo                   : CallingScript CmdletFunc
+CalleeSessionState           : module: CalleeModule
+CalleeSessionStateInternal   : module: CalleeModule
+PSCmdletSessionState         : <module-null>
+PSCmdletSessionStateInternal : <module-null>
+FrameSessionStateInternal1   : <module-null>
+FrameSessionState            : <module-null>
+FrameSessionStateInternal2   : <module-null>
+Groups                       : {[module: CalleeModule, CalleeSessionState], [module: CalleeModule, CalleeSessionStateInternal], [<module-null>, PSCmdletSessionState], [<module-null>, PSCmdletSessionStateInternal, 
+                               FrameSessionStateInternal1, FrameSessionStateInternal2], [<module-null>, FrameSessionState]}
+
+CalleeInfo                   : CalleeInScript
+CallerInfo                   : Toplevel of CallingScript
+CalleeSessionState           : <module-null>
+CalleeSessionStateInternal   : <module-null>
+PSCmdletSessionState         : <module-null>
+PSCmdletSessionStateInternal : <module-null>
+FrameSessionStateInternal1   : <null>
+FrameSessionState            : <module-null>
+FrameSessionStateInternal2   : <module-null>
+Groups                       : {[<module-null>, CalleeSessionState, FrameSessionState], [<module-null>, CalleeSessionStateInternal, PSCmdletSessionStateInternal, FrameSessionStateInternal2], [<module-null>, 
+                               PSCmdletSessionState], [<null>, FrameSessionStateInternal1]}
+
+CalleeInfo                   : CalleeInModule
+CallerInfo                   : Toplevel of CallingScript
+CalleeSessionState           : module: CalleeModule
+CalleeSessionStateInternal   : module: CalleeModule
+PSCmdletSessionState         : <module-null>
+PSCmdletSessionStateInternal : <module-null>
+FrameSessionStateInternal1   : <module-null>
+FrameSessionState            : <module-null>
+FrameSessionStateInternal2   : <module-null>
+Groups                       : {[module: CalleeModule, CalleeSessionState], [module: CalleeModule, CalleeSessionStateInternal], [<module-null>, PSCmdletSessionState], [<module-null>, PSCmdletSessionStateInternal, 
+                               FrameSessionStateInternal1, FrameSessionStateInternal2], [<module-null>, FrameSessionState]}
+
+CalleeInfo                   : CalleeInScript
+CallerInfo                   : CallingModule SimpleFunc
+CalleeSessionState           : <module-null>
+CalleeSessionStateInternal   : <module-null>
+PSCmdletSessionState         : module: CallingModule
+PSCmdletSessionStateInternal : module: CallingModule
+FrameSessionStateInternal1   : module: CallingModule
+FrameSessionState            : module: CallingModule
+FrameSessionStateInternal2   : module: CallingModule
+Groups                       : {[<module-null>, CalleeSessionState], [<module-null>, CalleeSessionStateInternal], [module: CallingModule, PSCmdletSessionState], [module: CallingModule, PSCmdletSessionStateInternal, 
+                               FrameSessionStateInternal1, FrameSessionStateInternal2], [module: CallingModule, FrameSessionState]}
+
+CalleeInfo                   : CalleeInModule
+CallerInfo                   : CallingModule SimpleFunc
+CalleeSessionState           : module: CalleeModule
+CalleeSessionStateInternal   : module: CalleeModule
+PSCmdletSessionState         : module: CallingModule
+PSCmdletSessionStateInternal : module: CallingModule
+FrameSessionStateInternal1   : module: CallingModule
+FrameSessionState            : module: CallingModule
+FrameSessionStateInternal2   : module: CallingModule
+Groups                       : {[module: CalleeModule, CalleeSessionState], [module: CalleeModule, CalleeSessionStateInternal], [module: CallingModule, PSCmdletSessionState], [module: CallingModule, 
+                               PSCmdletSessionStateInternal, FrameSessionStateInternal1, FrameSessionStateInternal2], [module: CallingModule, FrameSessionState]}
+
+CalleeInfo                   : CalleeInScript
+CallerInfo                   : CallingModule CmdletFunc
+CalleeSessionState           : <module-null>
+CalleeSessionStateInternal   : <module-null>
+PSCmdletSessionState         : module: CallingModule
+PSCmdletSessionStateInternal : module: CallingModule
+FrameSessionStateInternal1   : module: CallingModule
+FrameSessionState            : module: CallingModule
+FrameSessionStateInternal2   : module: CallingModule
+Groups                       : {[<module-null>, CalleeSessionState], [<module-null>, CalleeSessionStateInternal], [module: CallingModule, PSCmdletSessionState], [module: CallingModule, PSCmdletSessionStateInternal, 
+                               FrameSessionStateInternal1, FrameSessionStateInternal2], [module: CallingModule, FrameSessionState]}
+
+CalleeInfo                   : CalleeInModule
+CallerInfo                   : CallingModule CmdletFunc
+CalleeSessionState           : module: CalleeModule
+CalleeSessionStateInternal   : module: CalleeModule
+PSCmdletSessionState         : module: CallingModule
+PSCmdletSessionStateInternal : module: CallingModule
+FrameSessionStateInternal1   : module: CallingModule
+FrameSessionState            : module: CallingModule
+FrameSessionStateInternal2   : module: CallingModule
+Groups                       : {[module: CalleeModule, CalleeSessionState], [module: CalleeModule, CalleeSessionStateInternal], [module: CallingModule, PSCmdletSessionState], [module: CallingModule, 
+                               PSCmdletSessionStateInternal, FrameSessionStateInternal1, FrameSessionStateInternal2], [module: CallingModule, FrameSessionState]}
+
+CalleeInfo                   : CalleeInScript
+CallerInfo                   : Toplevel of CallingModule
+CalleeSessionState           : <module-null>
+CalleeSessionStateInternal   : <module-null>
+PSCmdletSessionState         : module: CallingModule
+PSCmdletSessionStateInternal : module: CallingModule
+FrameSessionStateInternal1   : module: CallingModule
+FrameSessionState            : module: CallingModule
+FrameSessionStateInternal2   : module: CallingModule
+Groups                       : {[<module-null>, CalleeSessionState], [<module-null>, CalleeSessionStateInternal], [module: CallingModule, PSCmdletSessionState], [module: CallingModule, PSCmdletSessionStateInternal, 
+                               FrameSessionStateInternal1, FrameSessionStateInternal2], [module: CallingModule, FrameSessionState]}
+
+CalleeInfo                   : CalleeInModule
+CallerInfo                   : Toplevel of CallingModule
+CalleeSessionState           : module: CalleeModule
+CalleeSessionStateInternal   : module: CalleeModule
+PSCmdletSessionState         : module: CallingModule
+PSCmdletSessionStateInternal : module: CallingModule
+FrameSessionStateInternal1   : module: CallingModule
+FrameSessionState            : module: CallingModule
+FrameSessionStateInternal2   : module: CallingModule
+Groups                       : {[module: CalleeModule, CalleeSessionState], [module: CalleeModule, CalleeSessionStateInternal], [module: CallingModule, PSCmdletSessionState], [module: CallingModule, 
+                               PSCmdletSessionStateInternal, FrameSessionStateInternal1, FrameSessionStateInternal2], [module: CallingModule, FrameSessionState]}
+
+CalleeInfo                   : CalleeInScript
+CallerInfo                   : From prompt
+CalleeSessionState           : <module-null>
+CalleeSessionStateInternal   : <module-null>
+PSCmdletSessionState         : <module-null>
+PSCmdletSessionStateInternal : <module-null>
+FrameSessionStateInternal1   : <null>
+FrameSessionState            : <module-null>
+FrameSessionStateInternal2   : <module-null>
+Groups                       : {[<module-null>, CalleeSessionState, FrameSessionState], [<module-null>, CalleeSessionStateInternal, PSCmdletSessionStateInternal, FrameSessionStateInternal2], [<module-null>, 
+                               PSCmdletSessionState], [<null>, FrameSessionStateInternal1]}
+
+CalleeInfo                   : CalleeInModule
+CallerInfo                   : From prompt
+CalleeSessionState           : module: CalleeModule
+CalleeSessionStateInternal   : module: CalleeModule
+PSCmdletSessionState         : <module-null>
+PSCmdletSessionStateInternal : <module-null>
+FrameSessionStateInternal1   : <null>
+FrameSessionState            : module: CalleeModule
+FrameSessionStateInternal2   : module: CalleeModule
+Groups                       : {[module: CalleeModule, CalleeSessionState, FrameSessionState], [module: CalleeModule, CalleeSessionStateInternal, FrameSessionStateInternal2], [<module-null>, PSCmdletSessionState], 
+                               [<module-null>, PSCmdletSessionStateInternal], [<null>, FrameSessionStateInternal1]}

@@ -16,9 +16,10 @@
 #Requires -Version 5.1
 
 using namespace System
+using namespace System.Collections
 using namespace System.IO
 
-[CmdletBinding(SupportsShouldProcess)]
+[CmdletBinding(PositionalBinding = $false)]
 [OutputType([System.IO.FileInfo], [string])]
 param(
     # The user scope of the profile to create. The script picks the host scope itself.
@@ -26,16 +27,35 @@ param(
     [string]$Scope,
 
     # Force overwriting existing scripts
-    [switch]$Force
+    [switch]$Force,
+
+    # Internally used to indicate child process
+    [Parameter(DontShow)]
+    [switch]$IsChild
 )
 
-try {
-    $null = Get-Variable 'foobar' -Scope 1 -ErrorAction Stop
+if (-not $IsChild) {
+    try {
+        $null = Get-Variable 'foobar' -Scope 1 -ErrorAction Stop
+    }
+    catch [System.ArgumentOutOfRangeException] {
+        throw 'Dot-sourcing this script is not allowed.'
+    }
+    catch {}
+
+    $pwsh = 'pwsh'
+    if ($PSVersionTable.PSVersion.Major -lt 6) {
+        $pwsh = 'powershell.exe'
+    }
+    # Splatting of switch parameters causes problems in 5.1
+    $arguments = [ArrayList]::new()
+    foreach ($kvp in $PSBoundParameters.GetEnumerator()) {
+        $null = $arguments.Add('-' + $kvp.Key)
+        if ($kvp.Value -isnot [switch]) { $null = $arguments.Add($kvp.Value) }
+    }
+    & $pwsh -NoProfile -NoLogo -NonInteractive -ExecutionPolicy Bypass -File $PSCommandPath -IsChild $arguments
+    return
 }
-catch [System.ArgumentOutOfRangeException] {
-    throw 'Dot-sourcing this script is not allowed.'
-}
-catch {}
 
 Set-StrictMode -Version 3.0
 if (-not $PSBoundParameters.ContainsKey('ErrorAction')) {
@@ -113,27 +133,13 @@ if (Test-Path $vstudioPath -PathType Container) {
 [string]$scriptAllHosts = $contentAllHosts -join $nl
 [string]$scriptCurrentHost = $contentCurrentHost -join $nl
 
-[psmoduleinfo]$tempModule = $null
-[powershell]$posh = $null
-try {
-    $posh = [powershell]::Create($Host.Runspace.InitialSessionState).AddScript((
-            @(
-                "New-Module -ScriptBlock {$nl"
-                $scriptAllHosts
-                $scriptGetProfileHelp
-                $scriptCurrentHost
-                "${nl}Export-ModuleMember -Function * -Alias * $nl}$nl"
-            ) -join ''
-        ))
-    $result = $posh.Invoke()
-    if ($posh.HadErrors -or -not $result -or $result.Count -ne 1) {
-        throw 'Failed to generate a temporary module for profile sources.'
-    }
-    $tempModule = $result[0]
-}
-finally {
-    if ($posh) { $posh.Dispose() }
-}
+[psmoduleinfo]$tempModule = [psmoduleinfo]::new($true)
+. $tempModule.NewBoundScriptBlock([scriptblock]::Create(@(
+            $scriptAllHosts
+            $scriptGetProfileHelp
+            $scriptCurrentHost
+            "${nl}Export-ModuleMember -Function * -Alias * $nl") -join '')
+)
 
 $scriptGetProfileHelp = $scriptGetProfileHelp.Replace('%ALIASES%',
     ($tempModule.ExportedAliases.Values.Name | Sort-Object) -join "', '")

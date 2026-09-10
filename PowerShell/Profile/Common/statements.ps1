@@ -3,6 +3,38 @@
 Set-StrictMode -Version 3
 $ErrorActionPreference = 'Stop'
 
+# Disable AMSI method invocation logging.
+# We must do this at the earliest point to avoid compiled scripts referring the original method.
+# Note that this doesn't fully get rid of AMSI logging, but it mitigates against the worst
+# offender with regards to security and performance.
+& {
+    if ($PSVersionTable.PSVersion -lt '7.3') { return }
+    $fi = [psobject].Assembly.GetType('System.Management.Automation.Language.CachedReflectionInfo').GetField('MemberInvocationLoggingOps_LogMemberInvocation', [System.Reflection.BindingFlags]'NonPublic, Static')
+    if ($null -eq $fi) {
+        Write-Host '**DeAmsify** Field not found: MemberInvocationLoggingOps_LogMemberInvocation'
+        return
+    }
+    $mi = $fi.GetValue($null)
+    if ($mi -is [System.Reflection.Emit.DynamicMethod]) {
+        Write-Host '**DeAmsify** Already dynamic: MemberInvocationLoggingOps_LogMemberInvocation'
+        return
+    }
+    if ($mi -isnot [System.Reflection.MethodInfo] -or $mi.ReturnType -ne [void]) {
+        Write-Host '**DeAmsify** Invalid MethodInfo: MemberInvocationLoggingOps_LogMemberInvocation'
+        return
+    }
+    $paramTypes = [type[]] ($mi.GetParameters() | Select-Object -ExpandProperty ParameterType)
+    $dmReplacement = [System.Reflection.Emit.DynamicMethod]::new('', $null, $paramTypes, $true)
+    $dmReplacement.GetILGenerator().Emit([System.Reflection.Emit.OpCodes]::Ret)
+    # Target field is readonly, use DynamicMethod to bypass.
+    $dmSetter = [System.Reflection.Emit.DynamicMethod]::new('', $null, [type[]]@([System.Object]), $true)
+    $il = $dmSetter.GetILGenerator()
+    $il.Emit([System.Reflection.Emit.OpCodes]::Ldarg_0)
+    $il.Emit([System.Reflection.Emit.OpCodes]::Stsfld, $fi)
+    $il.Emit([System.Reflection.Emit.OpCodes]::Ret)
+    $dmSetter.Invoke($null, @(, $dmReplacement))
+}
+
 # One history across all hosts per user
 Set-PSReadLineOption -HistorySavePath (Join-Path (
         [System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::MyDocuments)
